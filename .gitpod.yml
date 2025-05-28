@@ -3,3 +3,74 @@ image: gitpod/workspace-full:latest
 tasks:
       - name: Install NPM Packages
         command: npm install
+      - before: install-phpmyadmin.sh
+      - name: Start PHP Server
+        command: php -S
+      - name: Start MySQL Server
+        command: mysql.server start
+      
+      - name: Start PHPMyAdmin
+        command: phpmyadmin --host=localhost --port=80
+      - before: start-phpmyadmin.sh
+      - name: Start MySQL Workbench
+        command: mysql-workbench
+      - before: start-mysql-workbench.sh
+      - name: Start VS Code
+        command: code --no-sandbox
+      - before: start-vscode.sh
+      - name: Start Gitpod
+        command: gitpod --no-sandbox
+      - before: start-gitpod.sh
+      - name: Start Git
+        command: git init
+      - before: start-git.sh
+      - name: Start Node.js
+        command: node server.js
+      - before: start-node.sh
+      - name: Start React App
+        command: npm start
+      - before: start-react.sh
+      - name: Start Angular App
+        command: ng serve
+      - before: start-angular.sh
+      - name: Start Vue.js App
+        command: npm run serve
+      - before: start-vue.sh
+      - name: Start Python Server
+        command: python manage.py runserver
+      - before: start-python.sh
+      - name: Start Django Server
+        command: python manage.py runserver
+      - before: start-django.sh
+      - name: Start Flask Server
+        command: flask run
+      - before: start-flask.sh
+      - name: Start Ruby on Rails Server
+        command: rails server
+      - before: start-rails.sh
+      - name: Start Java Spring Boot Server
+        command: ./mvnw spring-boot:run
+      - before: start-spring-boot.sh
+      - name: Start Go Server
+        command: go run main.go
+      - before: start-go.sh
+      - name: Start Rust Server
+        command: cargo run
+      - before: start-rust.sh
+      - name: Start C# ASP.NET Core Server
+        command: dotnet run
+      - before: start-aspnet.sh
+      - name: Start Elixir Phoenix Server
+        command: mix phx.server
+      - before: start-phoenix.sh
+      - name: Start Scala Play Server
+        command: sbt run
+
+
+ports:
+          - name: phpmyadmin
+            port: 80
+            onOpen: open-browser
+          - name: mysql
+            port: 3306
+            onOpen: open-browser
