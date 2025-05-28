@@ -32,3 +32,24 @@ RUN \
 
 # [Optional] Uncomment if you want to install more global node modules
 # RUN su node -c "npm install -g <your-package-list-here>"
+
+
+image: gitpod/workspace-nodejs:latest
+
+tasks:
+  - name: "Install PHP 8.4 and extensions"
+    before: |
+      # Install necessary packages for apt-get (if not already present)
+      sudo apt-get update && sudo apt-get install ca-certificates apt-transport-https software-properties-common
+    command: |
+      # Add the Ondřej Surý PPA for PHP
+      sudo add-apt-repository ppa:ondrej/php
+      sudo apt-get update
+      # Install PHP 8.4 and any needed extensions
+      sudo apt-get install -y php8.4 php8.4-cli php8.4-mbstring php8.4-curl php8.4-json # Add more extensions as needed
+      # Install Node.js dependencies (if needed)
+      npm install
+      echo "PHP 8.4 installed!"
+ports:
+  - port: 3000
+    onOpen: open-preview
